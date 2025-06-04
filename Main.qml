@@ -48,10 +48,10 @@ Window {
 
         ListView{
             ScrollBar.vertical: ScrollBar {
-                parent: flickable.parent
-                anchors.top: flickable.top
-                anchors.left: flickable.left
-                anchors.bottom: flickable.bottom
+                parent: Flickable.parent
+                anchors.top: Flickable.top
+                anchors.left: Flickable.left
+                anchors.bottom: Flickable .bottom
                 height: parent.height
             }
             anchors {
@@ -62,7 +62,7 @@ Window {
 
 
             model: listModel
-            delegate:Button {
+            delegate: Rectangle {
                 required property string name
                 required property string eColor
                 required property string hoverColor
@@ -73,17 +73,23 @@ Window {
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
 
+                color: listElemHandler.hovered ? lmButton.hoverColor : lmButton.eColor
+
                 HoverHandler {
                     id: listElemHandler
                     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
                     cursorShape: Qt.PointingHandCursor
                 }
 
-                background: Rectangle {
-                    id: bg
-                    color: listElemHandler.hovered ? hoverColor : eColor
-                    radius: height / 10
+                Button {
+                    id: btn    
+                    background: null
                     anchors.fill: parent
+
+                    onClicked:
+                    {
+                        console.log("Clicked " + name)
+                    }
                 }
 
                 Text {
@@ -92,11 +98,6 @@ Window {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignHCenter
                     font.pointSize: 16
-                }
-
-                onClicked:
-                {
-                    console.log("Clicked " + name + " " + bg.radius)
                 }
             }
 
