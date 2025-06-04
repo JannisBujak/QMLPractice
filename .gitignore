@@ -3,3 +3,5 @@ build***
 build/
 *.json
 CMakeLists.txt.user
+vc140.pdb
+.qmlls.ini
