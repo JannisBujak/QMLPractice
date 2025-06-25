@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
-
+import Kaffeemaschine
 
 Window {
     id: main
@@ -9,6 +9,10 @@ Window {
     height: 600
     visible: true
     title: qsTr("Hello World")
+
+    Backend {
+        id: myBackend
+    }
 
     Rectangle {
         id: sidebar
@@ -20,29 +24,29 @@ Window {
             id: listModel
             ListElement {
                 name: "A"
-                eColor:"#00a8ff"
-                hoverColor: "#0097e6"
+                colorNorm: "#00a8ff"
+                colorHover: "#0097e6"
             }
             ListElement {
                 name: "B"
-                eColor: "#9c88ff"
-                hoverColor: "#8c7ae6"
+                colorNorm: "#9c88ff"
+                colorHover: "#8c7ae6"
             }
             ListElement {
                 name: "C"
-                eColor: "#fbc531"
-                hoverColor: "#e1b12c"
+                colorNorm: "#fbc531"
+                colorHover: "#e1b12c"
             }
             ListElement {
                 name: "D"
-                eColor: "#4cd137"
-                hoverColor: "#44bd32"
+                colorNorm: "#4cd137"
+                colorHover: "#44bd32"
             }
             ListElement {
                 name: "E"
-                eColor: "#487eb0"
-                hoverColor: "#40739e"
-            }
+                colorNorm: "#487eb0"
+                colorHover: "#40739e"
+            }            
 
         }
 
@@ -51,7 +55,7 @@ Window {
                 parent: Flickable.parent
                 anchors.top: Flickable.top
                 anchors.left: Flickable.left
-                anchors.bottom: Flickable .bottom
+                anchors.bottom: Flickable.bottom
                 height: parent.height
             }
             anchors {
@@ -61,11 +65,14 @@ Window {
             spacing: 10
 
 
-            model: listModel
+            // model: listModel
+            model: myBackend.generateDataModel()
+
             delegate: Rectangle {
                 required property string name
-                required property string eColor
-                required property string hoverColor
+                required property string bgColorNorm
+                required property string bgColorHover
+
                 id: lmButton
                 height: 50
                 width: parent.width
@@ -73,8 +80,8 @@ Window {
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
 
-                color: listElemHandler.hovered ? lmButton.hoverColor : lmButton.eColor
-
+                color: listElemHandler.hovered ? lmButton.bgColorHover : lmButton.bgColorNorm
+                
                 HoverHandler {
                     id: listElemHandler
                     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
@@ -99,45 +106,16 @@ Window {
                     horizontalAlignment: Text.AlignHCenter
                     font.pointSize: 16
                 }
+
             }
 
         }
 
-        /*RowLayout {
-            id: layout
-            anchors.fill: parent
-            spacing: 6
-
-            Rectangle {
-                width: main.width * 0.2
-                height: main.height * 0.4
-                color: "#4cd137"
-            }
-            Rectangle {
-                width: main.width * 0.2
-                height: main.height * 0.4
-                color: "#e84118"
-            }
-            Rectangle {
-                width: main.width * 0.2
-                height: main.height * 0.4
-                color: "#487eb0"
-            }
-            Rectangle {
-                width: main.width * 0.2
-                height: main.height * 0.4
-                color: "#273c75"
-            }
-            Rectangle {
-                width: main.width * 0.2
-                height: main.height * 0.4
-                color: "#00a8ff"
-            }
-*/
         HoverHandler {
             id: mouse
             acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
             cursorShape: Qt.PointingHandCursor
         }
     }
+
 }
