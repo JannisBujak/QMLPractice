@@ -29,26 +29,26 @@ Window {
                 fill: parent
                 margins: 20
             }
-            
+
             spacing: 10
 
             // model: listModel
             model: myBackend.generateDataModel()
 
             delegate: Rectangle {
+                id: lmButton
                 required property string name
                 required property string bgColorNorm
                 required property string bgColorHover
-
-                id: lmButton
                 height: 50
                 width: parent.width
+                radius: 5
 
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
 
                 color: listElemHandler.hovered ? lmButton.bgColorHover : lmButton.bgColorNorm
-                
+
                 HoverHandler {
                     id: listElemHandler
                     acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
@@ -56,24 +56,21 @@ Window {
                 }
 
                 Button {
-                    id: btn    
+                    id: btn
                     background: null
                     anchors.fill: parent
 
-                    onClicked:
-                    {
-                        console.log("Clicked " + name)
+                    onClicked: {
+                        console.log("Clicked " + name);
                     }
                 }
 
-                    Text {
-                        text: name
-                        anchors.fill: parent
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: 16
-                    }
-
+                Text {
+                    text: name
+                    anchors.fill: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pointSize: 16
                 }
             }
         }
