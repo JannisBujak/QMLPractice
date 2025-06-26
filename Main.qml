@@ -8,7 +8,7 @@ Window {
     width: 800
     height: 600
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("Kaffeemaschine")
 
     Backend {
         id: myBackend
@@ -20,50 +20,17 @@ Window {
         height: parent.height
         color: "#2f3640"
 
-        ListModel {
-            id: listModel
-            ListElement {
-                name: "A"
-                colorNorm: "#00a8ff"
-                colorHover: "#0097e6"
-            }
-            ListElement {
-                name: "B"
-                colorNorm: "#9c88ff"
-                colorHover: "#8c7ae6"
-            }
-            ListElement {
-                name: "C"
-                colorNorm: "#fbc531"
-                colorHover: "#e1b12c"
-            }
-            ListElement {
-                name: "D"
-                colorNorm: "#4cd137"
-                colorHover: "#44bd32"
-            }
-            ListElement {
-                name: "E"
-                colorNorm: "#487eb0"
-                colorHover: "#40739e"
-            }            
-
-        }
-
-        ListView{
+        ListView {
+            id: listView
             ScrollBar.vertical: ScrollBar {
-                parent: Flickable.parent
-                anchors.top: Flickable.top
-                anchors.left: Flickable.left
-                anchors.bottom: Flickable.bottom
                 height: parent.height
             }
             anchors {
                 fill: parent
                 margins: 20
             }
+            
             spacing: 10
-
 
             // model: listModel
             model: myBackend.generateDataModel()
@@ -99,16 +66,16 @@ Window {
                     }
                 }
 
-                Text {
-                    text: name
-                    anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: 16
+                    Text {
+                        text: name
+                        anchors.fill: parent
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: 16
+                    }
+
                 }
-
             }
-
         }
 
         HoverHandler {
@@ -118,4 +85,20 @@ Window {
         }
     }
 
+    Rectangle {
+        id: contentWnd
+        x: sidebar.width
+        width: main.width - sidebar.width
+        height: main.height
+        color: "#e84118"
+
+        Text {
+            text: "Test text"
+            color: "#353b48"
+            anchors.centerIn: parent
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 32
+        }
+    }
 }
