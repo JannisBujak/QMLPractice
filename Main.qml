@@ -10,8 +10,14 @@ Window {
     visible: true
     title: qsTr("Kaffeemaschine")
 
+    property CaffeeInfo selectedModell: null
+
     Backend {
-        id: myBackend
+        id: cppBackend
+
+        onDataModelSelected: (coffee) => {
+            selectedModell = coffee
+        }
     }
 
     Rectangle {
@@ -33,7 +39,7 @@ Window {
             spacing: 10
 
             // model: listModel
-            model: myBackend.generateDataModel()
+            model: cppBackend.generateDataModel()
 
             delegate: Rectangle {
                 id: lmButton
@@ -59,9 +65,10 @@ Window {
                     id: btn
                     background: null
                     anchors.fill: parent
-
+                    
                     onClicked: {
                         console.log("Clicked " + name);
+                        cppBackend.setDataModel(name);
                     }
                 }
 
@@ -90,7 +97,7 @@ Window {
         color: "#e84118"
 
         Text {
-            text: "Test text"
+            text: (selectedModell != null) ? selectedModell.name : ""
             color: "#353b48"
             anchors.centerIn: parent
             verticalAlignment: Text.AlignVCenter

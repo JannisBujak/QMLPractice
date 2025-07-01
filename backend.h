@@ -33,7 +33,7 @@ private:
     QString colorHovered;
 };
 
-using CaffeeInfoPtr = CaffeeInfo*;
+using CoffeeInfoPtr = CaffeeInfo*;
 
 class Backend : public QObject {
     Q_OBJECT
@@ -44,12 +44,12 @@ public:
     
     ~Backend();
 
-    Q_INVOKABLE void generateNumber(int min, int max);
+    Q_INVOKABLE void setDataModel(QString aCoffeeName);
 
-    Q_INVOKABLE QList<CaffeeInfoPtr> generateDataModel();
+    Q_INVOKABLE QList<CoffeeInfoPtr> generateDataModel();
 
 signals: 
-    void numberEmitted(int num);
+    void dataModelSelected(CoffeeInfoPtr aCoffeeInfoPtr);
 
 private:
     const QList<CaffeeInfo*> elemInfoList = {

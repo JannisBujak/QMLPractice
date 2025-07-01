@@ -3,23 +3,24 @@
 
 Backend::Backend(QObject *parent)
     : QObject{parent}
-{
-    
-}
+{}
 
 Backend::~Backend()
 {
-    for (CaffeeInfoPtr ptr : elemInfoList) 
+    for (CoffeeInfoPtr ptr : elemInfoList) 
         delete ptr;
 }
 
-void Backend::generateNumber(int min, int max)
-{
-    const int randomNum = QRandomGenerator::global()->bounded(min, max);
-    emit numberEmitted(randomNum);
+void Backend::setDataModel(QString aCoffeeName) {
+    for (const CoffeeInfoPtr& coffee : elemInfoList) {
+        if (coffee->getName() == aCoffeeName) {
+            emit dataModelSelected(coffee); 
+        }        
+    }    
 }
 
-QList<CaffeeInfoPtr> Backend::generateDataModel()
+
+QList<CoffeeInfoPtr> Backend::generateDataModel()
 {
     return elemInfoList;
 }
