@@ -10,7 +10,7 @@ Window {
     visible: true
     title: qsTr("Kaffeemaschine")
 
-    property CaffeeInfo selectedModell: null
+    property CoffeeInfo selectedModell: null;
 
     Backend {
         id: cppBackend
@@ -94,7 +94,7 @@ Window {
         x: sidebar.width
         width: main.width - sidebar.width
         height: main.height
-        color: "#e84118"
+        color: (selectedModell != null) ? selectedModell.bgColorHover : "#7f8fa6"
 
         Text {
             text: (selectedModell != null) ? selectedModell.name : ""

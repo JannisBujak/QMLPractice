@@ -17,8 +17,8 @@ qt_add_qml_module(appKaffeemaschine
     VERSION 1.0
     QML_FILES
     Main.qml
-    SOURCES backend.h backend.cpp
-)
+    SOURCES CoffeeInfo.h CoffeeInfo.cpp Backend.h Backend.cpp
+    )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
