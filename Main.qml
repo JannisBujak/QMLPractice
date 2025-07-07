@@ -20,89 +20,25 @@ Window {
         }
     }
 
-    Rectangle {
-        id: sidebar
-        width: parent.width * (mouse.hovered ? 0.4 : 0.2)
-        height: parent.height
-        color: "#2f3640"
+    RowLayout {
+        anchors.fill: parent
+        spacing: 0
 
-        ListView {
-            id: listView
-            ScrollBar.vertical: ScrollBar {
-                height: parent.height
-            }
-            anchors {
-                fill: parent
-                margins: 20
-            }
+        Sidebar {
+            id: sidebar
+            sbBackend: cppBackend
 
-            spacing: 10
-
-            // model: listModel
-            model: cppBackend.generateDataModel()
-
-            delegate: Rectangle {
-                id: lmButton
-                required property string name
-                required property string bgColorNorm
-                required property string bgColorHover
-                height: 50
-                width: parent.width
-                radius: 5
-
-                anchors.leftMargin: 10
-                anchors.topMargin: 10
-
-                color: listElemHandler.hovered ? lmButton.bgColorHover : lmButton.bgColorNorm
-
-                HoverHandler {
-                    id: listElemHandler
-                    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-                    cursorShape: Qt.PointingHandCursor
-                }
-
-                Button {
-                    id: btn
-                    background: null
-                    anchors.fill: parent
-                    
-                    onClicked: {
-                        console.log("Clicked " + name);
-                        cppBackend.setDataModel(name);
-                    }
-                }
-
-                Text {
-                    text: name
-                    anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignHCenter
-                    font.pointSize: 16
-                }
-            }
+            Layout.fillHeight: true
+            Layout.preferredWidth: parent.width * (sidebar.hovered ? 0.4 : 0.2)
+            Layout.preferredHeight: parent.height
         }
 
-        HoverHandler {
-            id: mouse
-            acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-            cursorShape: Qt.PointingHandCursor
-        }
-    }
 
-    Rectangle {
-        id: contentWnd
-        x: sidebar.width
-        width: main.width - sidebar.width
-        height: main.height
-        color: (selectedModell != null) ? selectedModell.bgColorHover : "#7f8fa6"
-
-        Text {
-            text: (selectedModell != null) ? selectedModell.name : ""
-            color: "#353b48"
-            anchors.centerIn: parent
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 32
+        CoffeeContent {
+            id: contentWnd
+            Layout.fillHeight: true
+            Layout.preferredWidth: main.width - sidebar.width
+            Layout.preferredHeight: main.height
         }
     }
 }

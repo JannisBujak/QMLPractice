@@ -4,6 +4,8 @@ project(Kaffeemaschine VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_AUTORCC ON)
+
 find_package(Qt6 REQUIRED COMPONENTS Core Quick)
 
 qt_standard_project_setup(REQUIRES 6.8)
@@ -16,7 +18,7 @@ qt_add_qml_module(appKaffeemaschine
     URI Kaffeemaschine
     VERSION 1.0
     QML_FILES
-    Main.qml
+    Main.qml CoffeeContent.qml Sidebar.qml
     SOURCES CoffeeInfo.h CoffeeInfo.cpp Backend.h Backend.cpp
     )
 
